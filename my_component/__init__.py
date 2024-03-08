@@ -3,6 +3,7 @@ import json
 
 import streamlit as st
 import streamlit.components.v1 as components
+from streamlit.errors import StreamlitAPIException
 
 
 _RELEASE = False
@@ -26,18 +27,24 @@ def my_component(adjust=True):
 
     Parameters
     ----------
-    name: str
+    adjust: bool
         The name of the thing we're saying hello to. The component will display
         the text "Hello, {name}!"
 
     Returns
     -------
-    dict or None
+    dict of str: str or None
         The number of times the component's "Click Me" button has been clicked.
         (This is the value passed to `Streamlit.setComponentValue` on the
         frontend.)
 
     """
+    if not isinstance(adjust, bool):
+        raise StreamlitAPIException(
+            "The adjust parameter from st_theme() received an invalid type.\n"
+            "\nExpected: *bool*  "
+            f"\nGot: *{type(adjust).__name__}*"
+        )
 
     theme = _component_func(key=None, default=None)
 
