@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <WithStreamlitConnection v-slot="{ args }">
-      <MyComponent :args="args" />
+    <WithStreamlitConnection v-slot="{ theme }">
+      <MyComponent :theme="theme" />
     </WithStreamlitConnection>
   </div>
 </template>
@@ -10,11 +10,9 @@
 import { defineComponent } from "vue"
 import MyComponent from "./MyComponent.vue"
 
-// "withStreamlitConnection" is a scoped slot. It bootstraps the
-// connection between your component and the Streamlit app, and handles
-// passing arguments from Python -> Component.
-//
-// You don't need to edit withStreamlitConnection (but you're welcome to!).
+// "withStreamlitConnection" is a scoped slot. It bootstraps the connection
+// between the component and the Streamlit app, and handles passing arguments
+// from Python -> Component.
 
 import WithStreamlitConnection from "./streamlit/WithStreamlitConnection.vue"
 

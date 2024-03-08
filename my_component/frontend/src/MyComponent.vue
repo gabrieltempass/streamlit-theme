@@ -1,31 +1,23 @@
 <template>
-  <span>
-    Hello, {{ args.name }}! &nbsp;
-    <button @click="onClicked">Click Me!</button>
-  </span>
 </template>
 
-<script>
-import { ref } from "vue"
+<script setup>
+import { computed, watch } from "vue"
 import { Streamlit } from "streamlit-component-lib"
-import { useStreamlit } from "./streamlit"
 
-export default {
-  name: "MyComponent",
-  props: ["args"], // Arguments that are passed to the plugin in Python are accessible in prop "args"
-  setup() {
-    useStreamlit() // lifecycle hooks for automatic Streamlit resize
+// Streamlit sends a theme object via props that can be used to ensure that the
+// component has visuals that match the active theme in a Streamlit app.
+const props = defineProps(["theme"])
 
-    const numClicks = ref(0)
-    const onClicked = () => {
-      numClicks.value++
-      Streamlit.setComponentValue(numClicks.value)
-    }
+// Stringify allows to compare the object with itself and trigger only when it
+// changes. Computed maintains variable reactivity after stringify.
+const theme = computed(() => JSON.stringify(props.theme))
+console.log(theme)
 
-    return {
-      numClicks,
-      onClicked,
-    }
+watch(theme, (newTheme) => {
+    // Executed immediately, then again when `theme` changes.
+    Streamlit.setComponentValue(theme.value)
   },
-}
+  { immediate: true }
+)
 </script>
