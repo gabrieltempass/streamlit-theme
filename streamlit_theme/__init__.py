@@ -9,20 +9,20 @@ from streamlit.errors import StreamlitAPIException
 _RELEASE = False
 
 if not _RELEASE:
-    _component_func = components.declare_component(
-        "my_component",
+    _st_theme = components.declare_component(
+        "st_theme",
         url="http://localhost:5173",
     )
 else:
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/dist")
-    _component_func = components.declare_component(
-        "my_component",
+    _st_theme = components.declare_component(
+        "st_theme",
         path=build_dir
     )
 
 
-def my_component(adjust=True):
+def st_theme(adjust=True):
     """Create a new instance of "my_component".
 
     Parameters
@@ -46,12 +46,12 @@ def my_component(adjust=True):
             f"\nGot: *{type(adjust).__name__}*"
         )
 
-    theme = _component_func(key=None, default=None)
+    theme = _st_theme(key=None, default=None)
 
     if adjust:
         css = """
             <style>
-                div.e1f1d6gn4:has(iframe[title="my_component.my_component"]) {
+                div.e1f1d6gn4:has(iframe[title="streamlit_theme.st_theme"]) {
                     height: 0;
                     margin-bottom: -2rem;
                 }

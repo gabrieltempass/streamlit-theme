@@ -12,7 +12,6 @@ const props = defineProps(["theme"])
 // Stringify allows to compare the object with itself and trigger only when it
 // changes. Computed maintains variable reactivity after stringify.
 const theme = computed(() => JSON.stringify(props.theme))
-console.log(theme)
 
 watch(theme, (newTheme) => {
     // Executed immediately, then again when `theme` changes.
