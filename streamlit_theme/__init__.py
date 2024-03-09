@@ -23,7 +23,8 @@ else:
 
 
 def st_theme(adjust=True):
-    """Get the active theme of the Streamlit app.
+    """
+    Get the active theme of the Streamlit app.
 
     The function immediately returns the active theme, once it is called. If
     the user manually changes the theme, after the web app is already running,
@@ -31,7 +32,7 @@ def st_theme(adjust=True):
 
     Parameters
     ----------
-    adjust: bool, default=True
+    adjust : bool, default=True
         If set to ``True``, which is the default, it makes a CSS adjustment and
         removes a space that would otherwise be added to the page by calling
         the ``st_theme`` function.
