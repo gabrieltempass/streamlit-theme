@@ -23,21 +23,62 @@ else:
 
 
 def st_theme(adjust=True):
-    """Create a new instance of "my_component".
+    """Get the active theme of the Streamlit app.
+
+    The function immediately returns the active theme, once it is called. If
+    the user manually changes the theme, after the web app is already running,
+    it updates the returned value.
 
     Parameters
     ----------
-    adjust: bool
-        The name of the thing we're saying hello to. The component will display
-        the text "Hello, {name}!"
+    adjust: bool, default=True
+        If set to ``True``, which is the default, it makes a CSS adjustment and
+        removes a space that would otherwise be added to the page by calling
+        the ``st_theme`` function.
+
+        Streamlit components are meant to render something in the web app, and
+        Streamlit adds a space for them even when there is nothing to render.
+        Since ``st_theme`` does not render anything, and only communicates with
+        the frontend to fetch the active theme, it makes a CSS adjustment to
+        remove this space.
+
+        In most cases, the CSS adjustment does not interfere with the rest of
+        the web app, however there could be some situations where this occurs.
+        If this happens, or it is desired to disable it, pass ``False`` to
+        `adjust` and, when necessary, make your own CSS adjustment with
+        ``st.markdown``.
 
     Returns
     -------
-    dict of str: str or None
-        The number of times the component's "Click Me" button has been clicked.
-        (This is the value passed to `Streamlit.setComponentValue` on the
-        frontend.)
+    theme : dict of str: str or None
+        A dictionary with the style settings being used by the active theme of
+        the Streamlit app, or ``None``, if for some reason it could not be
+        fetched.
 
+    Examples
+    -------
+    >>> from st_theme import st_theme
+    >>> theme = st_theme()
+    >>> theme
+    {
+        "primaryColor": "#ff4b4b"
+        "backgroundColor": "#ffffff"
+        "secondaryBackgroundColor": "#f0f2f6"
+        "textColor": "#31333F"
+        "base": "light"
+        "font": ""Source Sans Pro", sans-serif"
+        "linkText": "#0068c9"
+        "fadedText05": "rgba(49, 51, 63, 0.1)"
+        "fadedText10": "rgba(49, 51, 63, 0.2)"
+        "fadedText20": "rgba(49, 51, 63, 0.3)"
+        "fadedText40": "rgba(49, 51, 63, 0.4)"
+        "fadedText60": "rgba(49, 51, 63, 0.6)"
+        "bgMix": "rgba(248, 249, 251, 1)"
+        "darkenedBgMix100": "hsla(220, 27%, 68%, 1)"
+        "darkenedBgMix25": "rgba(151, 166, 195, 0.25)"
+        "darkenedBgMix15": "rgba(151, 166, 195, 0.15)"
+        "lightenedBg05": "hsla(0, 0%, 100%, 1)"
+    }
     """
     if not isinstance(adjust, bool):
         raise StreamlitAPIException(
