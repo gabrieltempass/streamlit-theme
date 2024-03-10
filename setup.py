@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="st-theme",
-    version="0.0.1",
+    version="1.0.0",
     author="Gabriel Tem Pass",
     author_email="redo_hint_0x@icloud.com",
     description="A component that returns the active theme of the Streamlit app.",
@@ -16,7 +16,10 @@ setuptools.setup(
     url="https://github.com/gabrieltempass/streamlit-theme",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    classifiers=["License :: OSI Approved :: MIT License"],
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "License :: OSI Approved :: MIT License",
+    ],
     python_requires=">=3.8",
     install_requires=["streamlit >= 0.63"],
 )

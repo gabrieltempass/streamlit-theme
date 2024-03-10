@@ -26,9 +26,11 @@ def st_theme(adjust=True):
     """
     Get the active theme of the Streamlit app.
 
-    The function immediately returns the active theme, once it is called. If
+    The function immediately returns the active theme, when it is called. If
     the user manually changes the theme, after the web app is already running,
     it updates the returned value.
+
+    The ``st_theme`` command must only be set once in the script.
 
     Parameters
     ----------
