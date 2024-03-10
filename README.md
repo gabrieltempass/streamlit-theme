@@ -43,15 +43,19 @@ Streamlit app, or ``None``, if for some reason it could not be fetched.
 
 ## Examples
 
+A basic example:
+
 ``` python
 import streamlit as st
 from streamlit_theme import st_theme
 theme = st_theme()
 st.write(theme)
 ```
-[![Example](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/st_theme_1.gif)](https://st-theme-1.streamlit.app/)
+[![Example 1](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/st_theme_1.gif)](https://st-theme-1.streamlit.app/)
 [**[App]**](https://st-theme-1.streamlit.app/) 
 [**[Source]**](https://github.com/gabrieltempass/streamlit-theme/blob/main/examples/st_theme_1.py)
+
+An example showing the CSS adjustment made, when set to ``True``:
 
 ``` python
 import streamlit as st
@@ -73,7 +77,7 @@ st.write("Lorem ipsum")
 st_theme(adjust=adjust)
 st.write("Lorem ipsum")
 ```
-[![Example](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/st_theme_2.gif)](https://st-theme-2.streamlit.app/)
+[![Example 2](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/st_theme_2.gif)](https://st-theme-2.streamlit.app/)
 [**[App]**](https://st-theme-2.streamlit.app/) 
 [**[Source]**](https://github.com/gabrieltempass/streamlit-theme/blob/main/examples/st_theme_2.py)
 
@@ -126,7 +130,7 @@ streamlit run streamlit_theme/example.py
 
 If all goes well, you should see something like this:
 
-![Quickstart success](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/development.gif)
+![Quickstart success](https://github.com/gabrieltempass/streamlit-theme/raw/main/images/development.png)
 
 Modify the frontend code at
 `streamlit_theme/frontend/src/StTheme.vue`.
