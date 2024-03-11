@@ -41,6 +41,21 @@ make your own CSS adjustment with ``st.markdown``.
 A dictionary with the style settings being used by the active theme of the
 Streamlit app, or ``None``, if for some reason it could not be fetched.
 
+## Notes
+
+There is a known bug, that depends on the browser, where the theme is not
+returned immediately when the function is called. But it is returned normally
+when the user changes it.
+
+This can be a problem in determining the initial theme of the web app. Because,
+by default, Streamlit uses the user's operating system setting (which might be
+unknown) to automatically apply the light or dark mode to the app, when it is
+first rendered.
+
+To solve the issue, it is recommended to set a
+[default theme configuration](https://docs.streamlit.io/library/advanced-features/theming)
+for the app, and use its value in case of ``st_theme`` returning ``None``.
+
 ## Examples
 
 A basic example:
@@ -83,10 +98,14 @@ st.write("Lorem ipsum")
 
 ## Requirements
 
-To use the theme component in your Streamlit app, you will need:
+To use this Streamlit component in your app, you will need:
 * **Python 3.8+**
-* **Streamlit 1.30+** (older versions of Streamlit will cause the *adjust*
-parameter from ``st_theme`` to not work properly when set to ``True``)
+* **Streamlit 1.29+**
+  * Older versions of Streamlit will still return the active theme, as long as
+  the version supports sending the theme object to the component. What will not
+  work though is the CSS adjustment. In this case, set *adjust* to ``False``. 
+  The correct adjustment also depends on
+  [browser compatibility for the :has pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility).
 
 ## Development
 

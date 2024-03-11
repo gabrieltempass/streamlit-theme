@@ -58,6 +58,21 @@ def st_theme(adjust=True):
         the Streamlit app, or ``None``, if for some reason it could not be
         fetched.
 
+    Notes
+    -----
+    There is a known bug, that depends on the browser, where the theme is not
+    returned immediately when the function is called. But it is returned
+    normally when the user changes it.
+
+    This can be a problem in determining the initial theme of the web app.
+    Because, by default, Streamlit uses the user's operating system setting
+    (which might be unknown) to automatically apply the light or dark mode to
+    the app, when it is first rendered.
+
+    To solve the issue, it is recommended to set a default theme configuration
+    (https://docs.streamlit.io/library/advanced-features/theming) for the app,
+    and use its value in case of ``st_theme`` returning ``None``.
+
     Examples
     -------
     >>> from st_theme import st_theme
