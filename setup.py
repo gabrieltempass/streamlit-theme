@@ -21,5 +21,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
     ],
     python_requires=">=3.8",
-    install_requires=["streamlit >= 0.63"],
+    install_requires=["streamlit >= 1.29"],
 )
