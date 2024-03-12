@@ -22,7 +22,7 @@ else:
     )
 
 
-def st_theme(adjust=True):
+def st_theme(adjust=True, key=None):
     """
     Get the active theme of the Streamlit app.
 
@@ -50,6 +50,9 @@ def st_theme(adjust=True):
         If this happens, or it is desired to disable it, pass ``False`` to
         `adjust` and, when necessary, make your own CSS adjustment with
         ``st.markdown``.
+    key : str or int, optional
+        A string or integer to use as a unique key for the component. Multiple
+        ``st_themes`` may not share the same key. Defaults to ``None``.
 
     Returns
     -------
@@ -105,7 +108,7 @@ def st_theme(adjust=True):
             f"\nGot: *{type(adjust).__name__}*"
         )
 
-    theme = _st_theme(key=None, default=None)
+    theme = _st_theme(key=key, default=None)
 
     if adjust:
         css = """

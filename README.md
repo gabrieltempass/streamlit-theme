@@ -35,6 +35,10 @@ app, however there could be some situations where this occurs. If this happens,
 or it is desired to disable it, pass ``False`` to `adjust` and, when necessary,
 make your own CSS adjustment with ``st.markdown``.
 
+**key** : `str` or `int`, optional</br>
+A string or integer to use as a unique key for the component. Multiple
+``st_themes`` may not share the same key. Defaults to ``None``.
+
 ## Returns
 
 **theme** : `dict of str: str` or `None`</br>
