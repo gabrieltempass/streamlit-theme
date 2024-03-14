@@ -1,5 +1,6 @@
 import os
 import json
+from contextlib import nullcontext
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -22,6 +23,52 @@ else:
     )
 
 
+def stylized_container(key):
+    """
+    Insert a container into the app, which receives an iframe that does not
+    render anything. Style this container using CSS and a unique key to remove
+    the space added by Streamlit.
+
+    Parameters
+    ----------
+        key : str or int or None
+            The key associated with this container. This needs to be unique
+            since all styles will be applied to the container with this key.
+
+    Returns
+    -------
+        container : DeltaGenerator
+            A container object. Elements can be added to this container using
+            either the "with" notation or by calling methods directly on the
+            returned object.
+    """
+    key = f"streamlit_theme_{key}"
+    selector = (
+        "div.element-container > div.stMarkdown > "
+        f"div[data-testid='stMarkdownContainer'] > p > span.{key}"
+    )
+
+    # The style targeting "stVerticalBlockBorderWrapper" removes 1 rem of space
+    # added by the iframe and another 1 rem added by st.markdown.
+    css = (
+        f"""
+        <style>
+            div[data-testid="stVerticalBlockBorderWrapper"]:has({selector}) {{
+                margin-bottom: -2rem;
+            }}
+            div[data-testid="stVerticalBlock"]:has(> {selector}) div:has(iframe) {{
+                height: 0;
+            }}
+        </style>
+        """
+        f"<span class='{key}'></span>"
+    )
+
+    container = st.container()
+    container.markdown(css, unsafe_allow_html=True)
+    return container
+
+
 def st_theme(adjust=True, key=None):
     """
     Get the active theme of the Streamlit app.
@@ -29,8 +76,6 @@ def st_theme(adjust=True, key=None):
     The function immediately returns the active theme, when it is called. If
     the user manually changes the theme, after the web app is already running,
     it updates the returned value.
-
-    The ``st_theme`` command must only be set once in the script.
 
     Parameters
     ----------
@@ -77,7 +122,7 @@ def st_theme(adjust=True, key=None):
     and use its value in case of ``st_theme`` returning ``None``.
 
     Examples
-    -------
+    --------
     >>> from st_theme import st_theme
     >>> theme = st_theme()
     >>> theme
@@ -101,6 +146,7 @@ def st_theme(adjust=True, key=None):
         "lightenedBg05": "hsla(0, 0%, 100%, 1)"
     }
     """
+    
     if not isinstance(adjust, bool):
         raise StreamlitAPIException(
             "The adjust parameter from st_theme() received an invalid type.\n"
@@ -108,17 +154,17 @@ def st_theme(adjust=True, key=None):
             f"\nGot: *{type(adjust).__name__}*"
         )
 
-    theme = _st_theme(key=key, default=None)
+    if not isinstance(key, str) and not isinstance(key, int) and key is not None:
+        st.write("Entrou")
+        raise StreamlitAPIException(
+            "The key parameter from st_theme() received an invalid type.\n"
+            "\nExpected: *str* or *int* or *None*  "
+            f"\nGot: *{type(key).__name__}*"
+        )
 
-    if adjust:
-        css = """
-            <style>
-                div.e1f1d6gn4:has(iframe[title="streamlit_theme.st_theme"]) {
-                    height: 0;
-                    margin-bottom: -2rem;
-                }
-            </style>
-        """
-        st.markdown(css, unsafe_allow_html=True)
+    # If `True`, use the `stylized_container` context. Else, do not use it, but
+    # still run `_st_theme`.
+    with stylized_container(key=key) if adjust else nullcontext():
+        theme = _st_theme(key=key, default=None)
 
     return json.loads(theme) if theme is not None else theme

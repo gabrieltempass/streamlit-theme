@@ -16,8 +16,6 @@ The function immediately returns the active theme, when it is called. If the
 user manually changes the theme, after the web app is already running, it
 updates the returned value.
 
-The ``st_theme`` command must only be set once in the script.
-
 ## Parameters
 
 **adjust** : `bool`, `default=True`</br>
