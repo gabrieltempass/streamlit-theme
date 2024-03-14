@@ -102,11 +102,8 @@ st.write("Lorem ipsum")
 
 To use this Streamlit component in your app, you will need:
 * **Python 3.8+**
-* **Streamlit 1.29+**
-  * Older versions of Streamlit will still return the active theme, as long as
-  the version supports sending the theme object to the component. What will not
-  work though is the CSS adjustment. In this case, set *adjust* to ``False``. 
-  The correct adjustment also depends on
+* **Streamlit 1.20+**
+* The CSS adjustment depends on the
   [browser compatibility for the :has pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility).
 
 ## Development
