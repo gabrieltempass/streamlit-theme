@@ -155,7 +155,6 @@ def st_theme(adjust=True, key=None):
         )
 
     if not isinstance(key, str) and not isinstance(key, int) and key is not None:
-        st.write("Entrou")
         raise StreamlitAPIException(
             "The key parameter from st_theme() received an invalid type.\n"
             "\nExpected: *str* or *int* or *None*  "
