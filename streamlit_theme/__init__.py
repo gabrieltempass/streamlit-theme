@@ -31,16 +31,16 @@ def stylized_container(key):
 
     Parameters
     ----------
-        key : str or int or None
-            The key associated with this container. This needs to be unique
-            since all styles will be applied to the container with this key.
+    key : str or int or None
+        The key associated with this container. This needs to be unique since
+        all styles will be applied to the container with this key.
 
     Returns
     -------
-        container : DeltaGenerator
-            A container object. Elements can be added to this container using
-            either the "with" notation or by calling methods directly on the
-            returned object.
+    container : DeltaGenerator
+        A container object. Elements can be added to this container using
+        either the "with" notation or by calling methods directly on the
+        returned object.
     """
     key = f"streamlit_theme_{key}"
     selector = (
@@ -123,7 +123,7 @@ def st_theme(adjust=True, key=None):
 
     Examples
     --------
-    >>> from st_theme import st_theme
+    >>> from streamlit_theme import st_theme
     >>> theme = st_theme()
     >>> theme
     {
