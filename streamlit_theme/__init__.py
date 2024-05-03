@@ -1,6 +1,7 @@
 import os
 import json
 from contextlib import nullcontext
+from importlib.metadata import version as _version
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -21,6 +22,12 @@ else:
         "st_theme",
         path=build_dir
     )
+
+
+def print_version():
+    """Show the installed version of the Streamlit Theme package."""
+    version = _version("st-theme")
+    print(f"Streamlit Theme, version {version}")
 
 
 def stylized_container(key):
