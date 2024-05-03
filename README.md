@@ -102,7 +102,7 @@ st.write("Lorem ipsum")
 
 To use this Streamlit component in your app, you will need:
 * **Python 3.8+**
-* **Streamlit 1.20+**
+* **Streamlit 1.33+**
 * The CSS adjustment depends on the
   [browser compatibility with the :has pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility)
 
