@@ -31,7 +31,7 @@ to fetch the active theme, it makes a CSS adjustment to remove this space.
 In most cases, the CSS adjustment does not interfere with the rest of the web
 app, however there could be some situations where this occurs. If this happens,
 or it is desired to disable it, pass ``False`` to `adjust` and, when necessary,
-make your own CSS adjustment with ``st.markdown``.
+make your own CSS adjustment with ``st.html``.
 
 **key** : `str` or `int`, optional</br>
 A string or integer to use as a unique key for the component. Multiple
@@ -39,7 +39,7 @@ A string or integer to use as a unique key for the component. Multiple
 
 ## Returns
 
-**theme** : `dict of str: str` or `None`</br>
+**theme** : `dict of {str : str}` or `None`</br>
 A dictionary with the style settings being used by the active theme of the
 Streamlit app, or ``None``, if for some reason it could not be fetched.
 
@@ -104,7 +104,7 @@ To use this Streamlit component in your app, you will need:
 * **Python 3.8+**
 * **Streamlit 1.20+**
 * The CSS adjustment depends on the
-  [browser compatibility for the :has pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility).
+  [browser compatibility with the :has pseudo-class](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#browser_compatibility)
 
 ## Development
 
@@ -156,6 +156,5 @@ Modify the Python code at `streamlit_theme/__init__.py`.
 
 ## References
 
-This Streamlit component is based on the [streamlit-component-vue-vite-template](https://github.com/gabrieltempass/streamlit-component-vue-vite-template)
-repository, that uses Vue 3 to code the frontend and Vite to serve the files
-locally during development, as well as bundle and compile them for production.
+This Streamlit component was made with the [streamlit-component-vue-vite-template](https://github.com/gabrieltempass/streamlit-component-vue-vite-template), by
+[@gabrieltempass](https://github.com/gabrieltempass).
