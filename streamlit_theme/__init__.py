@@ -25,15 +25,19 @@ else:
 
 def stylized_container(key):
     """
+    Add a spaceless container to the app.
+    
     Insert a container into the app, which receives an iframe that does not
-    render anything. Style this container using CSS and a unique key to remove
-    the space added by Streamlit.
+    render anything. Style this container using CSS and a unique key. The style
+    targeting `"stVerticalBlockBorderWrapper"` removes 1rem of space added by
+    the iframe. While the style targeting the div that contains the iframe
+    changes its height from 1.5625rem to 0.
 
     Parameters
     ----------
-    key : str or int or None
-        The key associated with this container. This needs to be unique since
-        all styles will be applied to the container with this key.
+    key : str, int or None
+        A key associated with this container. This needs to be unique since all
+        styles will be applied to the container with this key.
 
     Returns
     -------
@@ -42,19 +46,13 @@ def stylized_container(key):
         either the "with" notation or by calling methods directly on the
         returned object.
     """
-    key = f"streamlit_theme_{key}"
-    selector = (
-        "div.element-container > div.stMarkdown > "
-        f"div[data-testid='stMarkdownContainer'] > p > span.{key}"
-    )
-
-    # The style targeting "stVerticalBlockBorderWrapper" removes 1 rem of space
-    # added by the iframe and another 1 rem added by st.markdown.
+    key = f"st_theme_{key}"
+    selector = f"div.element-container > div.stHtml > span.{key}"
     css = (
         f"""
         <style>
             div[data-testid="stVerticalBlockBorderWrapper"]:has({selector}) {{
-                margin-bottom: -2rem;
+                margin-bottom: -1rem;
             }}
             div[data-testid="stVerticalBlock"]:has(> {selector}) div:has(iframe) {{
                 height: 0;
@@ -63,9 +61,8 @@ def stylized_container(key):
         """
         f"<span class='{key}'></span>"
     )
-
     container = st.container()
-    container.markdown(css, unsafe_allow_html=True)
+    container.html(css)
     return container
 
 
@@ -94,14 +91,14 @@ def st_theme(adjust=True, key=None):
         the web app, however there could be some situations where this occurs.
         If this happens, or it is desired to disable it, pass ``False`` to
         `adjust` and, when necessary, make your own CSS adjustment with
-        ``st.markdown``.
+        ``st.html``.
     key : str or int, optional
         A string or integer to use as a unique key for the component. Multiple
         ``st_themes`` may not share the same key. Defaults to ``None``.
 
     Returns
     -------
-    theme : dict of str: str or None
+    theme : dict of {str : str} or None
         A dictionary with the style settings being used by the active theme of
         the Streamlit app, or ``None``, if for some reason it could not be
         fetched.
@@ -118,33 +115,19 @@ def st_theme(adjust=True, key=None):
     the app, when it is first rendered.
 
     To solve the issue, it is recommended to set a default theme configuration
-    (https://docs.streamlit.io/library/advanced-features/theming) for the app,
+    for the app (https://docs.streamlit.io/library/advanced-features/theming),
     and use its value in case of ``st_theme`` returning ``None``.
 
     Examples
     --------
+    >>> import streamlit as st
     >>> from streamlit_theme import st_theme
     >>> theme = st_theme()
-    >>> theme
-    {
-        "primaryColor": "#ff4b4b"
-        "backgroundColor": "#ffffff"
-        "secondaryBackgroundColor": "#f0f2f6"
-        "textColor": "#31333F"
-        "base": "light"
-        "font": ""Source Sans Pro", sans-serif"
-        "linkText": "#0068c9"
-        "fadedText05": "rgba(49, 51, 63, 0.1)"
-        "fadedText10": "rgba(49, 51, 63, 0.2)"
-        "fadedText20": "rgba(49, 51, 63, 0.3)"
-        "fadedText40": "rgba(49, 51, 63, 0.4)"
-        "fadedText60": "rgba(49, 51, 63, 0.6)"
-        "bgMix": "rgba(248, 249, 251, 1)"
-        "darkenedBgMix100": "hsla(220, 27%, 68%, 1)"
-        "darkenedBgMix25": "rgba(151, 166, 195, 0.25)"
-        "darkenedBgMix15": "rgba(151, 166, 195, 0.15)"
-        "lightenedBg05": "hsla(0, 0%, 100%, 1)"
-    }
+    >>> st.write(theme)
+    
+    .. output::
+       https://st-theme-1.streamlit.app/
+       height: 300px
     """
     
     if not isinstance(adjust, bool):
