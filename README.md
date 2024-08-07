@@ -1,3 +1,7 @@
+[![PyPI - Version](https://img.shields.io/pypi/v/st-theme)](https://pypi.org/project/st-theme/)
+[![Downloads](https://static.pepy.tech/badge/st-theme/month)](https://pepy.tech/project/st-theme)
+[![GitHub License](https://img.shields.io/github/license/gabrieltempass/streamlit-theme?color=blue)](https://github.com/gabrieltempass/streamlit-theme/blob/main/LICENSE)
+
 # Streamlit Theme
 
 A component that returns the active theme of the Streamlit app.
